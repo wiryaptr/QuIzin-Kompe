@@ -7,6 +7,7 @@
 <body>
     <h1>Dashboard</h1>
     <p>Halo, {{ auth()->user()->name }}</p>
+    <a href="{{ route('quizzes.index') }}">Kuis Saya</a>
 
     <form method="POST" action="{{ route('logout') }}">
         @csrf
