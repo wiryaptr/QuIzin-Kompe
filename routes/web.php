@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoomController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,4 +18,11 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
+});
+
+Route::prefix('rooms')->name('rooms.')->group(function () {
+    Route::post('/', [RoomController::class, 'store'])->name('store');
+    Route::get('/{code}/lobby', [RoomController::class, 'lobby'])->name('lobby');
+    Route::post('/{code}/start', [RoomController::class, 'start'])->name('start');
+    Route::post('/{code}/finish', [RoomController::class, 'finish'])->name('finish');
 });
