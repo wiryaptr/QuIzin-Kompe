@@ -7,6 +7,7 @@ use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\GameplayController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\QuestionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +25,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
 
     Route::resource('quizzes', QuizController::class);
+    Route::resource('quizzes.questions', QuestionController::class)
+        ->shallow()
+        ->except(['show']);
 });
 
 Route::prefix('rooms')->name('rooms.')->group(function () {
