@@ -1,0 +1,88 @@
+-- database/quizhoodie.sql
+-- Import lewat phpMyAdmin: buat database "quizhoodie" dulu, lalu tab Import.
+
+CREATE DATABASE IF NOT EXISTS quizhoodie CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE quizhoodie;
+
+CREATE TABLE users (
+    id         BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name       VARCHAR(100)  NOT NULL,
+    email      VARCHAR(255)  NOT NULL UNIQUE,
+    password   VARCHAR(255)  NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+CREATE TABLE quizzes (
+    id          BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id     BIGINT UNSIGNED NOT NULL,
+    title       VARCHAR(255) NOT NULL,
+    description TEXT NULL,
+    created_at  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE questions (
+    id            BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    quiz_id       BIGINT UNSIGNED NOT NULL,
+    question_text TEXT NOT NULL,
+    time_limit    SMALLINT UNSIGNED NOT NULL DEFAULT 20, -- detik
+    position      SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    created_at    TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at    TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (quiz_id) REFERENCES quizzes(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE options (
+    id          BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    question_id BIGINT UNSIGNED NOT NULL,
+    option_text VARCHAR(255) NOT NULL,
+    is_correct  TINYINT(1) NOT NULL DEFAULT 0,
+    created_at  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE rooms (
+    id         BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    quiz_id    BIGINT UNSIGNED NOT NULL,
+    host_id    BIGINT UNSIGNED NOT NULL,
+    code       VARCHAR(20) NOT NULL UNIQUE,
+    status     ENUM('waiting','active','finished') NOT NULL DEFAULT 'waiting',
+    started_at TIMESTAMP NULL DEFAULT NULL,
+    ended_at   TIMESTAMP NULL DEFAULT NULL,
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (quiz_id) REFERENCES quizzes(id) ON DELETE CASCADE,
+    FOREIGN KEY (host_id) REFERENCES users(id)   ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE participants (
+    id          BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    room_id     BIGINT UNSIGNED NOT NULL,
+    user_id     BIGINT UNSIGNED NULL,
+    nickname    VARCHAR(50) NOT NULL,
+    total_score INT NOT NULL DEFAULT 0,
+    created_at  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uq_room_nickname (room_id, nickname),
+    FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE answers (
+    id               BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    participant_id   BIGINT UNSIGNED NOT NULL,
+    question_id      BIGINT UNSIGNED NOT NULL,
+    option_id        BIGINT UNSIGNED NULL,
+    is_correct       TINYINT(1) NOT NULL DEFAULT 0,
+    points           INT NOT NULL DEFAULT 0,
+    response_time_ms INT NULL,
+    created_at       TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at       TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uq_participant_question (participant_id, question_id),
+    FOREIGN KEY (participant_id) REFERENCES participants(id) ON DELETE CASCADE,
+    FOREIGN KEY (question_id)    REFERENCES questions(id)    ON DELETE CASCADE,
+    FOREIGN KEY (option_id)      REFERENCES options(id)      ON DELETE SET NULL
+) ENGINE=InnoDB;
