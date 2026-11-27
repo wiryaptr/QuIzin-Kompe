@@ -13,6 +13,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/register', function () {
+    return 'Halaman Register (buat view register.blade.php di sini)';
+});
+
+Route::post('/room/join', function () {
+    return 'Proses gabung room';
+});
+
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);

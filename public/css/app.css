@@ -1,0 +1,719 @@
+
+/* assets/css/style.css — tema QuIzin Kompe di atas Bootstrap 5.3 */
+:root {
+    --colored-paper-container: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+
+    --dl-orange: #DD6638;
+    --dl-broadway: #60CDE3;
+    --dl-greenwhich: #97DA79;
+    --dl-york: #FFE14D;
+    --dl-black: #070707;
+    --dl-ivory: #F7E9D5;
+    --dl-weapon: #D5903F;
+    --dl-vitality: #74B01C;
+    --dl-spirit: #C288F0;
+    --dl-restorative: #00FF9A;
+    --dl-souls: #60CDE3;
+
+    --dl-abram: #2193AE;
+    --dl-wraith: #954E7A;
+    --dl-viscous: #8AC365;
+    --dl-greytalon: #61B083;
+    --dl-vindicta: #87A8B8;
+    --dl-infernus: #FF472E;
+    --dl-mcginnis: #466A9C;
+    --dl-haze: #AE6231;
+    --dl-ladygeist: #088A5C;
+    --dl-mirage: #87683C;
+    --dl-thelash: #444C57;
+    --dl-seven: #EC963F;
+    --dl-yamato: #6F9181;
+    --dl-warden: #566279;
+    --dl-bebop: #A04835;
+    --dl-paradox: #993A53;
+    --dl-dynamo: #D0BA46;
+    --dl-shiv: #A53D88;
+
+    --dl-paper: #EECC99;
+    --dl-paper-2: #B88756;
+    --dl-paper-w: #eff0f3;
+    /* latar section selang-seling */
+
+
+    --font-jost: 'Jost', "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-valve-oracle: 'Valve Oracle', 'Bricolage Grotesque', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-valve-pulp: 'Valve Pulp', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+h1, h2, h3, .qik-brand, .qik-display, .qik-h2 {
+    font-family: var(--font-valve-oracle);
+}
+
+p { font-family: var(--font-jost); }
+a { font-family: var(--font-jost);}
+
+.qik-display { font-weight: 800; line-height: 1.05; color: var(--dl-paper-w); }
+.qik-h2      { font-weight: 800; font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--dl-black); }
+.qik-section-alt .qik-h2 { color: var(--dl-paper-w); }
+.qik-lead    { max-width: 34rem; color: var(--dl-paper-w); }
+.qik-measure { max-width: 38rem; }
+.qik-list li { color: var(--dl-paper-w);}
+ 
+/* ---------- Button ---------- */
+.btn {
+    --btn-bg: var(--dl-orange);
+    --btn-fg: var(--dl-ivory);
+    --btn-hover-bg: var(--dl-ivory);
+    --btn-hover-fg: var(--dl-orange);
+    --sheet-dark: var(--dl-paper-2);
+    --sheet-light: var(--dl-paper);
+    --shadow: rgba(0, 0, 0, .25);
+
+    --btn-face: var(--btn-bg);
+    --btn-ink: var(--btn-fg);
+
+    /* matikan background, border, dan shadow bawaan Bootstrap */
+    --bs-btn-font-size: 1.15rem;
+    --bs-btn-padding-x: 0;
+    --bs-btn-padding-y: 0;
+    --bs-btn-border-width: 0;
+    --bs-btn-border-radius: 0;
+    --bs-btn-bg: var(--sheet-dark);
+    --bs-btn-hover-bg: var(--sheet-dark);
+    --bs-btn-active-bg: var(--sheet-dark);
+    --bs-btn-disabled-bg: var(--sheet-dark);
+    --bs-btn-color: var(--btn-ink);
+    --bs-btn-hover-color: var(--btn-ink);
+    --bs-btn-active-color: var(--btn-ink);
+    --bs-btn-disabled-color: var(--btn-ink);
+
+    position: relative;
+    isolation: isolate;
+    display: inline-block;
+    padding: .55em 1.5em;
+    margin: .4em .5em;                  /* ruang untuk kertas yang menjorok keluar */
+    background: var(--sheet-dark);
+    border: 0;
+    border-radius: 0;
+    font-family: var(--font-valve-oracle);
+    font-weight: 700;
+    font-size: var(--bs-btn-font-size);
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    filter: drop-shadow(3px 5px 0 var(--shadow));
+}
+
+/* dua kertas belakang: gambar SVG yang melar mengikuti ukuran tombol */
+.btn::before {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    inset: -.3em -.55em .25em .55em;
+    background: var(--sheet-light);
+    clip-path: var(--colored-paper-container);
+    transform: rotate(1deg);
+    pointer-events: none;
+}
+
+/* wajah tombol, paling depan */
+.btn::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: .12em .3em;
+    background: var(--btn-face);
+    clip-path: var(--colored-paper-container);
+    transform: rotate(-1deg);
+    pointer-events: none;
+}
+
+.btn:active,
+.btn.active {
+    --btn-face: var(--btn-hover-bg);
+    --btn-ink: var(--btn-hover-fg);
+}
+.btn:active {
+    filter: drop-shadow(3px 5px 0 var(--shadow));
+}
+.btn:focus-visible {
+    outline: 3px solid var(--dl-broadway);
+    outline-offset: .5em;
+}
+.btn:disabled,
+.btn.disabled {
+    opacity: .55;
+    pointer-events: none;
+}
+
+.btn:hover::after,
+.btn:focus-visible::after { transform: scale(1.07) rotate(-1deg);}
+
+.qik-daftar .btn {
+    font-size: 1.7rem;
+}
+
+
+/* ---------- Navbar ---------- */
+.qik-navbar { 
+    isolation: isolate;
+    padding: .75rem 0 0rem;
+}
+.qik-navbar::before { 
+    content:"";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: -39px;
+    pointer-events: none;
+    background: url('../assets/img/navbar-bg.png') no-repeat center bottom / max(105%, 1920px) 112px,
+    linear-gradient(var(--dl-black), var(--dl-black)) no-repeat left top / 100% max(0px, calc(100% - 80px));
+}
+.qik-navbar .navbar-nav { gap: 1rem; align-items: center; margin-left: 1.25rem; margin-top: 1rem;}
+
+/* ----- Brand ----- */
+.qik-brand-link {
+    position: relative;
+    display: inline-grid;
+    margin: .3rem .5rem .3rem .9rem;
+    text-decoration: none;
+    --brand-shadow: rgba(0, 0, 0, .25);               /* warna bayangan */
+    filter: drop-shadow(6px 7px 0 var(--brand-shadow));
+}
+.qik-brand-sheet, .qik-brand-face, .qik-brand-shape, .qik-brand-text { grid-area: 1 / 1; }
+
+/* kertas belakang: TANPA animasi */
+.qik-brand-sheet {
+    margin-block: 4px;
+    background: var(--dl-paper);
+    filter: drop-shadow(4px 4px 0 var(--brand-shadow));
+}
+.qik-brand-sheet--back  { transform: translate(8px, 8px) rotate(-1.5deg) scaleX(1.03); }
+.qik-brand-sheet--front { transform: translate(-8px, -4px) rotate(2deg) scaleX(1.05);}
+
+.qik-brand-face {
+    display: grid;
+    width: 371px;                         
+    height: 83px;
+    filter: drop-shadow(4px 4px 0 var(--brand-shadow));
+}
+.qik-brand-shape {
+    transform: rotate(-2.4deg);
+    background: var(--dl-orange);
+}
+
+/* TEKS: tidak punya transform dan tidak berada di dalam elemen beranimasi */
+.qik-brand-text {
+    position: relative;                   /* supaya tetap di atas wadah yang ber-transform */
+    z-index: 1;
+    place-self: center;
+    color: var(--dl-black);
+    font-family: var(--font-valve-oracle);
+    font-weight: 700;
+    padding-bottom: 0.1rem;
+    font-size: 3.6rem;
+    line-height: 1;
+    white-space: nowrap;
+    transform: rotate(-2.4deg);
+}
+/* hover: wadah bergoyang berlangkah, teks membesar */
+.qik-brand-link:hover .qik-brand-shape,
+.qik-brand-link:focus-visible .qik-brand-shape {
+    animation: brand-shape-wiggle 2.45s step-end infinite;
+}
+.qik-brand-link:hover .qik-brand-text,
+.qik-brand-link:focus-visible .qik-brand-shape-text {
+    font-size: 4rem;
+    transform: translateY(0.4rem);
+}
+@keyframes brand-shape-wiggle {
+    0%      { transform: translateY(7px) rotate(-1.2deg)  scale(1.1); }
+    33.333% { transform: translateY(7px) rotate(1.75deg) scale(1.1); }
+    66.666% { transform: translateY(7px) rotate(-4deg)  scale(1.1); }
+}
+@media (min-width: 992px) {
+    .qik-navbar { min-height: 62px; }
+    .qik-brand-link {
+        align-self: flex-start;
+        margin: -6px 1.25rem -4.5rem 1.25rem;   /* margin bawah negatif: tinggi brand tidak menambah tinggi navbar */
+    }
+}
+
+/* ----- Link menu (Beranda, Cara Main, Fitur) ----- */
+.qik-paper-link {
+    --bg: var(--dl-warden);
+    --fg: var(--dl-ivory);
+    --rest: 0deg;     /* kemiringan awal */
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
+    padding: 0rem 1rem;
+    transform: rotate(var(--rest)); 
+}
+.qik-link-text {
+    color: var(--fg);
+    font-family: var(--font-valve-pulp);
+    font-weight: 700;
+    font-size: 1.1rem;
+    font-variant: small-caps;
+    text-decoration: none;
+}
+.qik-link-shape {      /* wadah kertas */
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--bg);
+    clip-path: var(--colored-paper-container);
+    pointer-events: none;
+}
+
+.qik-paper-link--weapon:hover .qik-link-shape,
+.qik-paper-link--weapon:focus-within .qik-link-shape{
+    animation: link-shape-wiggle--weapon 2.45s step-end infinite;     
+}
+.qik-paper-link--vitality:hover .qik-link-shape,
+.qik-paper-link--vitality:focus-within .qik-link-shape{
+    animation: link-shape-wiggle--vitality 2.45s step-end infinite;      /* hanya wadah */
+}
+.qik-paper-link--spirit:hover .qik-link-shape,
+.qik-paper-link--spirit:focus-within .qik-link-shape{
+    animation: link-shape-wiggle--spirit 2.45s step-end infinite;      /* hanya wadah */
+}
+
+.qik-paper-link:active .qik-link-text,
+.qik-paper-link:focus-within .qik-link-text { color: var(--bg); }              /* teks: tidak membesar, tidak bergeser */
+.qik-paper-link:active .qik-link-shape,
+.qik-paper-link:focus-within .qik-link-shape{ background: var(--fg); }
+.qik-link-text[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: .1em;
+}
+.qik-paper-link--weapon  { --bg: var(--dl-weapon); --fg: var(--dl-ivory); --rest: -2.31deg;}
+.qik-paper-link--vitality  { --bg: var(--dl-vitality); --fg: var(--dl-ivory); --rest: 1.31deg;}
+.qik-paper-link--spirit { --bg: var(--dl-spirit); --fg: var(--dl-ivory); --rest: -4.45deg;}
+
+@keyframes link-shape-wiggle--weapon {
+    0%      { transform: rotate(-2.31deg)  scale(1.1); }
+    33.333% { transform: rotate(-3.41deg) scale(1.1); }
+    66.666% { transform: rotate(2.93deg)  scale(1.1); }
+}
+@keyframes link-shape-wiggle--vitality {
+    0%      { transform: rotate(1.31deg)  scale(1.1); }
+    33.333% { transform: rotate(-.64deg) scale(1.1); }
+    66.666% { transform: rotate(4.5deg)  scale(1.1); }
+}
+@keyframes link-shape-wiggle--spirit {
+    0%      { transform: rotate(-4.45deg)  scale(1.1); }
+    33.333% { transform: rotate(2.45deg) scale(1.1); }
+    66.666% { transform: rotate(.46deg)  scale(1.1); }
+}
+
+/* ----- Layar kecil ----- */
+@media (max-width: 991.98px) {
+    .qik-navbar .navbar-nav { align-items: flex-start; margin: 1.5rem 0 .5rem; }
+}
+
+
+/* ----- Tombol kanan (Masuk, Daftar) ----- */
+.qik-navbar-actions {
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: auto auto;        /* kolom 1 = Masuk, kolom 2 = Daftar */
+    align-items: center;
+    column-gap: 0.5rem;
+    transform: translateY(0.2rem);
+}
+/* Pembungkus tiap tombol: bentuk + teks ditumpuk */
+.qik-btn-warp {
+    position: relative;
+    z-index: 1;                              /* di atas kertas dekorasi */
+    display: inline-grid;
+    isolation: isolate;
+    grid-row: 1;
+    filter: drop-shadow(2px 4px 0 rgba(0, 0, 0, .25));
+}
+.qik-btn-shape {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--dl-orange);
+}
+.qik-btn-text {
+    position: relative;
+    z-index: 1;                              /* teks tetap di atas bentuk yang membesar */
+    padding: 0rem 1.3rem;
+    text-align: center;
+    color: var(--dl-ivory);
+    font-family: var(--font-valve-pulp);
+    font-weight: 700;
+    font-size: 1.5rem;
+    font-variant: small-caps;
+    text-decoration: none;
+}
+.qik-btn-warp-left  { grid-column: 1;}
+.qik-btn-warp-right { grid-column: 2; }
+.qik-btn-shape,
+.qik-btn-text { grid-area: 1 / 1; }
+.qik-btn-warp-left .qik-btn-shape  { transform: rotate(3.85deg);}
+.qik-btn-warp-right .qik-btn-shape { transform: rotate(-1deg); }
+
+/* Hover: hanya bentuk yang membesar, teks diam */
+.qik-btn-warp-left:hover .qik-btn-shape,
+.qik-btn-warp-left:focus-within .qik-btn-shape { transform: scale(1.1) rotate(-2.77deg); }
+.qik-btn-warp-right:hover .qik-btn-shape,
+.qik-btn-warp-right:focus-within .qik-btn-shape { transform: scale(1.1) rotate(5.33deg); }
+
+.qik-btn-warp:active .qik-btn-text,
+.qik-btn-warp:focus-visible .qik-link-text { color: var(--dl-orange); }              /* teks: tidak membesar, tidak bergeser */
+.qik-btn-warp:active .qik-btn-shape,
+.qik-btn-warp:focus-visible .qik-btn-shape{
+    background: var(--dl-ivory);           
+}
+
+.qik-btn-text[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: .1em;
+}
+
+@media (max-width: 991.98px) {
+    .qik-navbar-actions { margin: .75rem 0 1rem .5rem; }
+}
+
+/* Kertas dekorasi: membentang di bawah kedua tombol, statis */
+.qik-actions-sheet {
+    grid-area: 1 / 1 / 2 / 3;                /* baris 1, kolom 1 sampai 2 */
+    align-self: stretch;                     /* wajib: tanpa ini tingginya jadi 0 */
+    background: var(--dl-paper);
+    filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, .25));
+    transform: translate(8px, 0px) rotate(-1.7deg) scale(1.1,1.4);
+}
+
+
+/* ---------- Hero ---------- */
+.qik-hero {
+    background: #555555;
+    padding:0rem 0 4rem;
+}
+.qik-stack {
+    --join-card: #6B3C07;
+    --join-tan: var(--dl-paper-2);
+    --join-input: #E4E7EF;
+    --join-shadow: rgba(0, 0, 0, .25);
+    position: relative;
+    display: grid;
+    padding: 3rem 2rem;                          /* ruang untuk lembar belakang yang menjorok keluar */
+}
+.qik-stack-sheet,
+.qik-stack-face { grid-area: 1 / 1; }
+
+/* lembar belakang (statis); urutan di markup: krem dulu, lalu tan di atasnya */
+.qik-stack-sheet {
+    background: var(--dl-paper);
+    filter: drop-shadow(8px 5px 0 var(--join-shadow));
+}
+.qik-stack-sheet--back { transform: translate(-14px, -12px) scale(.94) rotate(.4deg); }
+.qik-stack-sheet--front   { background: var(--join-tan); transform: translate(-33px, -9px) rotate(-9.5deg) scale(.86, 1.05); }
+
+/* bayangan ada di pembungkus yang tidak berputar */
+.qik-stack-face { display: grid; filter: drop-shadow(13px 5px 0 var(--join-shadow)); }
+.qik-stack-card {
+    padding: 2.6rem 13% 3rem;
+    background: var(--join-card) url('../assets/img/input-paper-front.png');
+    color: var(--dl-ivory);
+    transform: rotate(1.9deg);
+}
+
+/* ---------- TEMPLATE: komponen form ---------- */
+.qik-form-title {
+    margin: 0;
+    font-family: var(--font-valve-oracle);
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--dl-ivory);
+}
+.qik-form-hint {
+    margin: .15rem 0 0;
+    font-family: var(--font-jost);
+    font-size: .9rem;
+    color: var(--dl-ivory);
+}
+.qik-form-note {
+    margin: .5rem 0 0;
+    font-family: var(--font-jost);
+    font-size: .85rem;
+    color: var(--dl-ivory);
+}
+.qik-form-actions { margin-top: 3rem; }
+
+/* kolom + label berbentuk tag kertas. Warna & kemiringan tag diatur per kolom:
+   style="--tag-bg: var(--dl-ladygeist); --tag-rot: -4deg;" */
+.qik-field {
+    --tag-bg: var(--dl-abram);
+    --tag-rot: -7.8deg;
+    position: relative;
+    margin-top: 1.5rem;
+}
+.qik-field-tag {
+    position: absolute;
+    z-index: 1;
+    left: -1.5rem;
+    top: -.45rem;
+    margin: 0;
+    padding: .25rem .8rem;
+    background: var(--tag-bg);
+    color: #fff;
+    font: 700 .9rem/1.2 var(--font-jost);
+    transform: rotate(var(--tag-rot));
+    filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, .3));
+}
+.qik-input {
+    display: block;
+    width: 100%;
+    height: var(--input-h, 4.8rem);
+    padding: 0 1rem;
+    border: 0;
+    border-radius: 0;
+    background: var(--dl-paper-w);
+    color: var(--dl-black);
+    font-family: var(--font-jost);
+    font-size: 1.2rem;
+}
+.qik-input:focus { outline: 3px solid var(--dl-york); outline-offset: 3px; }
+
+/* lapisan kaca: hitam 80% + garis tepi keabuan, di paling atas */
+.qik-glass {
+    --input-h: 4.4rem;
+    position: relative;
+    padding: 2.4rem 2.4rem 3.2rem;
+    --glass-alpha: .8;                           /* opacity lapisan hitam */
+    background: rgb(10 10 10 / var(--glass-alpha));
+    border: 2px solid #4A4A4A;
+    color: var(--dl-ivory);
+}
+.qik-glass a { color: var(--dl-broadway); }
+
+/* Kolom kode room dibuat besar, seperti label jahitan di hoodie */
+.qik-code {
+    font-family: var(--font-valve-pulp);
+    font-weight: 800;
+    font-size: 3rem;
+    letter-spacing: .3em;
+    text-align: center;
+    text-transform: uppercase;
+    padding: .7rem 1rem;
+}
+.qik-code::placeholder { letter-spacing: .3em; opacity: .35; }
+.qik-join-input:focus { outline: 3px solid var(--dl-york); outline-offset: 3px; }
+
+.qik-field-tag--nama  { --tag-bg: var(--dl-paradox); --tag-rot: -2.5deg;}
+.qik-field-tag--email  { --tag-bg: var(--dl-ladygeist); --tag-rot: -3.6deg;}
+.qik-field-tag--password { --tag-bg: var(--dl-bebop); --tag-rot: -2deg;}
+.qik-field-tag--confirm-password { --tag-bg: var(--dl-mcginnis); --tag-rot: 2.7deg;}
+
+.qik-auth {
+    background: #1e1e1e;
+    padding: 4rem 0 5rem;
+    overflow-x: clip;               /* kertas yang menjorok keluar tidak memicu scroll horizontal */
+}
+.qik-auth-stack {
+    position: relative;
+    max-width: 30rem;
+    margin: 0 auto;
+}
+
+/* tumpukan kertas ikut tinggi glass, bukan ukuran tetap */
+.qik-stack--backdrop {
+    position: absolute;
+    z-index: 0;
+    inset: 3rem -2rem 2.2rem;       /* atas | kanan-kiri | bawah → atur untuk menggeser kartu coklat */
+    padding: 0;
+    pointer-events: none;
+}
+.qik-stack--backdrop .qik-stack-card { padding: 0; }
+
+.qik-auth-stack .qik-glass {
+    z-index: 1;                     /* di atas tumpukan kertas */
+}
+
+/* tombol lebar di dalam form */
+.qik-form-actions .btn {
+    --bs-btn-font-size: 1.9rem;
+    display: block;
+    width: auto;                    /* margin .4em .5em dari .btn tetap menyisakan ruang kertas */
+    text-align: center;
+}
+
+.qik-glass .btn {margin-top: 2rem;}
+/* ---------- Section ---------- */
+.qik-section     { background: var(--dl-paper-w); }
+.qik-section-alt { background: #555555; }
+.qik-section, .qik-cta {
+    --torn-h: 26px;                                     /* seberapa jauh tepi sobek menjorok ke section tetangga */
+    --torn-edge: polygon(
+        0% 100%,
+        0.0% 15.6px, 0.8% 15.5px, 1.6% 16.0px, 2.4% 17.0px, 3.2% 16.5px, 4.0% 16.0px,
+        4.8% 12.2px, 5.6% 12.2px, 6.4% 13.6px, 7.2% 13.9px, 8.0% 15.7px, 8.8% 14.1px,
+        9.6% 14.6px, 10.4% 13.2px, 11.2% 13.7px, 12.0% 14.4px, 12.8% 13.8px, 13.6% 14.5px,
+        14.4% 13.7px, 15.2% 13.4px, 16.0% 11.1px, 16.8% 5.6px, 17.6% 8.3px, 18.4% 8.5px,
+        19.2% 9.4px, 20.0% 7.1px, 20.8% 5.6px, 21.6% 7.6px, 22.4% 6.9px, 23.2% 8.8px,
+        24.0% 12.4px, 24.8% 12.9px, 25.6% 11.3px, 26.4% 12.8px, 27.2% 12.1px, 28.0% 13.7px,
+        28.8% 13.6px, 29.6% 15.9px, 30.4% 14.5px, 31.2% 13.9px, 32.0% 15.7px, 32.8% 13.1px,
+        33.6% 12.5px, 34.4% 13.0px, 35.2% 13.3px, 36.0% 12.8px, 36.8% 13.0px, 37.6% 14.2px,
+        38.4% 14.0px, 39.2% 17.4px, 40.0% 17.5px, 40.8% 17.2px, 41.6% 17.3px, 42.4% 15.2px,
+        43.2% 14.2px, 44.0% 14.7px, 44.8% 15.2px, 45.6% 12.5px, 46.4% 13.0px, 47.2% 8.5px,
+        48.0% 9.1px, 48.8% 9.4px, 49.6% 8.1px, 50.4% 10.8px, 51.2% 9.7px, 52.0% 12.7px,
+        52.8% 12.1px, 53.6% 9.8px, 54.4% 10.0px, 55.2% 17.4px, 56.0% 14.4px, 56.8% 9.5px,
+        57.6% 10.0px, 58.4% 13.4px, 59.2% 11.0px, 60.0% 10.4px, 60.8% 11.4px, 61.6% 11.9px,
+        62.4% 9.3px, 63.2% 10.3px, 64.0% 10.9px, 64.8% 12.6px, 65.6% 12.5px, 66.4% 16.5px,
+        67.2% 14.7px, 68.0% 15.2px, 68.8% 15.9px, 69.6% 13.9px, 70.4% 15.0px, 71.2% 19.5px,
+        72.0% 18.1px, 72.8% 19.0px, 73.6% 15.9px, 74.4% 12.4px, 75.2% 11.9px, 76.0% 12.4px,
+        76.8% 13.8px, 77.6% 13.7px, 78.4% 10.3px, 79.2% 9.1px, 80.0% 11.7px, 80.8% 11.7px,
+        81.6% 12.7px, 82.4% 12.7px, 83.2% 16.4px, 84.0% 14.5px, 84.8% 10.7px, 85.6% 10.7px,
+        86.4% 10.2px, 87.2% 12.5px, 88.0% 9.3px, 88.8% 8.8px, 89.6% 8.3px, 90.4% 6.0px,
+        91.2% 8.4px, 92.0% 10.3px, 92.8% 10.4px, 93.6% 11.1px, 94.4% 9.2px, 95.2% 10.5px,
+        96.0% 11.3px, 96.8% 15.2px, 97.6% 15.5px, 98.4% 16.6px, 99.2% 17.4px, 100.0% 16.2px,
+        100% 100%
+    );
+    position: relative;
+    z-index: 1;                                         /* kertas putih berada di atas section abu di sampingnya */
+    filter: drop-shadow(0 3px 3px rgba(0, 0, 0, .15));  /* bayangan jatuh ke bawah (tampak di tepi bawah kertas) */
+}
+.qik-section::before, .qik-section::after,
+.qik-cta::before,     .qik-cta::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: var(--torn-h);
+    background: var(--dl-paper-w);                        /* warna mengikuti --bg-white */
+    clip-path: var(--torn-edge);
+    pointer-events: none;
+}
+.qik-section::before, .qik-cta::before { top: calc(1px - var(--torn-h)); }                          /* tepi atas */
+.qik-section::after,  .qik-cta::after  { bottom: calc(1px - var(--torn-h)); transform: scaleY(-1); } /* tepi bawah (dibalik) */
+
+.qik-steps { display: grid; gap: 1.75rem; max-width: 40rem; }
+.qik-steps li { display: flex; gap: 1.1rem; align-items: flex-start; }
+.qik-step-no {
+    flex: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--dl-black);
+    color: #fff;
+    font-family: var(--font-jost);
+    font-weight: 800;
+}
+
+.qik-list { padding-left: 1.1rem; }
+.qik-list li { margin-bottom: .6rem; padding-left: .25rem; }
+.qik-list li::marker { color: var(--qik-coral); }
+
+.qik-cta { background: var(--dl-paper-w); }
+.qik-cta .qik-h2 { color: var(--dl-black) !important; }   /* heading di index.php memakai .text-white */
+label {font-family: var(--font-jost);}
+input::placeholder{font-family: var(--font-jost);}
+/* ---------- Footer ---------- */
+.qik-footer { background: var(--dl-black) url(../assets/img/footer-bg.png) no-repeat; color: #fff; }
+.qik-footer-muted { color: rgba(255, 255, 255, .65); padding-top: .5rem;}
+.qik-footer ul li { margin-bottom: .4rem; }
+.qik-footer a { color: rgba(255, 255, 255, .75); text-decoration: none; }
+.qik-footer a:hover { color: var(--dl-souls); }
+.qik-footer .qik-brand { color: var(--dl-souls); }
+.qik-footer-rule { border-color: rgba(255, 255, 255, .15); opacity: 1; }
+
+/* ---------- Aksesibilitas ---------- */
+a:focus-visible, button:focus-visible, .form-control:focus-visible {
+    outline: 3px solid var(--dl-broadway);
+    outline-offset: 2px;
+}
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+}
+
+/* ---------- Halaman login & register ---------- */
+.qik-auth {
+    background: var(--bg-gray);
+    padding: 3rem 0 4rem;
+}
+.qik-auth-card {
+    max-width: 28rem;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 1.25rem;
+    padding: 2rem;
+    box-shadow: 0 1rem 2rem rgba(36, 28, 75, .12);
+}
+
+
+@font-face {
+    font-family: 'Jost';
+    src: url('../assets/fonts/Jost/Jost-400-Book.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap; 
+}
+
+@font-face {
+    font-family: 'Jost';
+    src: url('../assets/fonts/Jost/Jost-400-BookItalic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap; 
+}
+
+@font-face {
+    font-family: 'Jost';
+    src: url('../assets/fonts/Jost/Jost-500-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap; 
+}
+
+@font-face {
+    font-family: 'Jost';
+    src: url('../assets/fonts/Jost/Jost-700-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap; 
+}
+
+@font-face {
+    font-family: 'Valve Oracle';
+    src: url('../assets/fonts/VALVEOracle/VALVEOracle-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap; 
+}
+
+@font-face {
+    font-family: 'Valve Oracle';
+    src: url('../assets/fonts/VALVEOracle/VALVEOracle-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap; 
+}
+
+@font-face {
+    font-family: 'Valve Oracle';
+    src: url('../assets/fonts/VALVEOracle/VALVEOracle-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap; 
+}
+
+@font-face {
+    font-family: 'Valve Pulp';
+    src: url('../assets/fonts/VALVEPulp/VALVEPulp-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap; 
+}
