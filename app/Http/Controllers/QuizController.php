@@ -13,7 +13,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = auth()->user()->quizzes()->withCount('questions')->latest()->get();
+        $quizzes = auth()->user()->quizzes()->withCount('questions')->latest()->paginate(10);
 
         return view('quizzes.index', compact('quizzes'));
     }

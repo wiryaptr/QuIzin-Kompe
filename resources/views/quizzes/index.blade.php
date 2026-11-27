@@ -18,11 +18,24 @@
             <li>
                 <a href="{{ route('quizzes.show', $quiz) }}">{{ $quiz->title }}</a>
                 ({{ $quiz->questions_count }} soal)
+                . dibuat {{ $quiz->created_at->translatedFormat('d F Y, H:i') }}
+
+                <a href="{{ route('quizzes.edit', $quiz) }}">Edit</a>
+
+                <form action="{{ route('quizzes.destroy', $quiz) }}" method="POST"
+                    style="display:inline"
+                    onsubmit="return confirm('Hapus kuis ini beserta semua soalnya?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Hapus</button>
+                </form>
             </li>
         @empty
             <li>Belum ada kuis.</li>
         @endforelse
     </ul>
+
+    {{ $quizzes->links() }}
 
     <a href="{{ route('dashboard') }}">Kembali</a>
 </body>
