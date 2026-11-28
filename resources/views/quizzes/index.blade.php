@@ -21,6 +21,7 @@
                 . dibuat {{ $quiz->created_at->translatedFormat('d F Y, H:i') }}
 
                 <a href="{{ route('quizzes.edit', $quiz) }}">Edit</a>
+                <a href="{{ route('quizzes.stats', $quiz) }}">Statistik</a>
 
                 <form action="{{ route('quizzes.destroy', $quiz) }}" method="POST"
                     style="display:inline"

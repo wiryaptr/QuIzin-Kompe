@@ -31,6 +31,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
+    Route::get('quizzes/{quiz}/stats', [QuizController::class, 'stats'])->name('quizzes.stats');
 
     Route::resource('quizzes', QuizController::class);
     Route::resource('quizzes.questions', QuestionController::class)

@@ -90,4 +90,27 @@ class QuizController extends Controller
 
         return redirect()->route('quizzes.index')->with('success', 'Kuis berhasil dihapus.');
     }
+
+    public function stats(Quiz $quiz)
+    {
+        Gate::authorize('view', $quiz);
+
+        $questions = $quiz->questions()
+            ->withCount([
+                'answers as total_answers',
+                'answers as wrong_answers' => fn ($q) => $q->where('is_correct', false),
+            ])
+            ->get()
+            ->map(function ($question) {
+                $question->wrong_percent = $question->total_answers > 0
+                    ? round($question->wrong_answers / $question->total_answers * 100)
+                    : 0;
+
+                return $question;
+            })
+            ->sortByDesc('wrong_percent')
+            ->values();
+
+        return view('quizzes.stats', compact('quiz', 'questions'));
+    }
 }
