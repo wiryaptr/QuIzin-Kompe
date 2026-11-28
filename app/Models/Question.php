@@ -10,4 +10,6 @@ class Question extends Model
     
     public function quiz() { return $this->belongsTo(Quiz::class); }
     public function options() { return $this->hasMany(Option::class); }
+
+    public function answers() { return $this->hasMany(Answer::class); }
 }
